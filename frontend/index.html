@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relax Timer</title>
+
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="title">RELAX TIMER</div>
+
+  <div class="timer" id="timer">
+    <div id="hours">00</div> :
+    <div id="minutes">00</div> :
+    <div id="seconds">00</div>
+    <div class="ms" id="milliseconds">000</div>
+  </div>
+
+  <div class="labels">
+    <span>Hours</span>
+    <span>Minutes</span>
+    <span>Seconds</span>
+    <span>MS</span>
+  </div>
+
+  <div class="controls">
+
+    <input type="number" id="hInput" placeholder="HH" min="0">
+    <input type="number" id="mInput" placeholder="MM" min="0">
+    <input type="number" id="sInput" placeholder="SS" min="0">
+
+    <button onclick="focusMode()">FOCUS MODE</button>
+
+    <button onclick="startTimer()">START</button>
+
+    <button onclick="stopTimer()">STOP</button>
+
+    <button onclick="resetTimer()">RESET</button>
+
+    <button onclick="toggleTheme()">DARK/LIGHT</button>
+
+    <button onclick="toggleLayout()">VERTICAL/HORIZONTAL</button>
+
+  </div>
+
+</div>
+
+<!-- TIME OVER SCREEN -->
+<div id="timeOverBox" class="time-over-box">
+  <h1>TIME OVER</h1>
+  <div id="completedTime">00:00:00</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
