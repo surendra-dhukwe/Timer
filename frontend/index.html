@@ -9,6 +9,50 @@
 </head>
 <body>
 
+<div class="top-controls">
+
+  <!-- COLOR PICKER -->
+  <input 
+    type="color"
+    id="colorPicker"
+    value="#00aaff"
+  >
+
+  <!-- COLOR NAME INPUT -->
+  <input
+    type="text"
+    id="colorName"
+    placeholder="Enter Color"
+  >
+
+  <!-- COLOR SELECT -->
+  <select id="colorSelect">
+
+    <option value="">Select Color</option>
+
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+    <option value="yellow">Yellow</option>
+    <option value="orange">Orange</option>
+    <option value="purple">Purple</option>
+    <option value="pink">Pink</option>
+    <option value="cyan">Cyan</option>
+    <option value="white">White</option>
+    <option value="black">Black</option>
+
+  </select>
+
+  <!-- TOGGLE -->
+  <button
+    onclick="toggleColorMode()"
+    id="modeBtn"
+  >
+    TEXT COLOR
+  </button>
+
+</div>
+
 <div class="container">
 
   <div class="title">RELAX TIMER</div>

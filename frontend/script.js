@@ -208,4 +208,163 @@ function playRelaxSound(){
   },5000);
 }
 
+let colorMode = "text";
+
+const colorPicker =
+document.getElementById("colorPicker");
+
+const modeBtn =
+document.getElementById("modeBtn");
+
+// COLOR CHANGE
+colorPicker.addEventListener("input", () => {
+
+  let color = colorPicker.value;
+
+  // TEXT COLOR
+  if(colorMode === "text"){
+
+    // TIMER
+    document.querySelector(".timer").style.color =
+    color;
+
+    document.querySelector(".timer").style.textShadow =
+    `0 0 10px ${color},
+     0 0 20px ${color},
+     0 0 40px ${color}`;
+
+    // TITLE
+    document.querySelector(".title").style.color =
+    color;
+
+    document.querySelector(".title").style.textShadow =
+    `0 0 10px ${color},
+     0 0 20px ${color},
+     0 0 40px ${color}`;
+
+    // TIME OVER
+    document.querySelector(".time-over-box h1")
+    .style.color = color;
+
+    document.querySelector(".time-over-box h1")
+    .style.textShadow =
+    `0 0 10px ${color},
+     0 0 20px ${color},
+     0 0 40px ${color}`;
+
+    document.getElementById("completedTime")
+    .style.color = color;
+
+    document.getElementById("completedTime")
+    .style.textShadow =
+    `0 0 10px ${color},
+     0 0 20px ${color},
+     0 0 40px ${color}`;
+
+  }
+
+  // BG COLOR
+  else{
+
+    document.body.style.background = color;
+
+    document.querySelector(".time-over-box")
+    .style.background = color;
+  }
+
+});
+
+// TOGGLE BUTTON
+function toggleColorMode(){
+
+  if(colorMode === "text"){
+
+    colorMode = "bg";
+
+    modeBtn.innerText = "BG COLOR";
+
+  }else{
+
+    colorMode = "text";
+
+    modeBtn.innerText = "TEXT COLOR";
+  }
+}
+
+const colorName =
+document.getElementById("colorName");
+
+const colorSelect =
+document.getElementById("colorSelect");
+
+// APPLY COLOR
+function applyColor(color){
+
+  // TEXT
+  if(colorMode === "text"){
+
+    document.querySelector(".timer")
+    .style.color = color;
+
+    document.querySelector(".title")
+    .style.color = color;
+
+    document.getElementById("completedTime")
+    .style.color = color;
+
+    document.querySelector(".time-over-box h1")
+    .style.color = color;
+
+    // glow
+    let glow =
+    `0 0 10px ${color},
+     0 0 20px ${color},
+     0 0 40px ${color}`;
+
+    document.querySelector(".timer")
+    .style.textShadow = glow;
+
+    document.querySelector(".title")
+    .style.textShadow = glow;
+
+    document.getElementById("completedTime")
+    .style.textShadow = glow;
+
+    document.querySelector(".time-over-box h1")
+    .style.textShadow = glow;
+
+  }
+
+  // BG
+  else{
+
+    document.body.style.background =
+    color;
+
+    document.querySelector(".time-over-box")
+    .style.background = color;
+  }
+}
+
+// PICKER
+colorPicker.addEventListener("input",()=>{
+
+  applyColor(colorPicker.value);
+
+});
+
+// INPUT
+colorName.addEventListener("keyup",()=>{
+
+  applyColor(colorName.value);
+
+});
+
+// SELECT
+colorSelect.addEventListener("change",()=>{
+
+  applyColor(colorSelect.value);
+
+});
+
 updateDisplay();
