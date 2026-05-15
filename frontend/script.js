@@ -1,5 +1,6 @@
 let totalMs = 0;
 let timer = null;
+let wakeLock = null;
 let originalTime = "00:00:00";
 
 const h = document.getElementById("hours");
@@ -62,6 +63,7 @@ ${String(ss).padStart(2,"0")}`;
   }
 
   clearInterval(timer);
+  enableWakeLock();
 
   timer = setInterval(() => {
 
@@ -72,6 +74,7 @@ ${String(ss).padStart(2,"0")}`;
       totalMs = 0;
 
       clearInterval(timer);
+      disableWakeLock();
 
       updateDisplay();
 
@@ -109,12 +112,16 @@ ${String(ss).padStart(2,"0")}`;
 }
 
 function stopTimer(){
-  clearInterval(timer);
-}
 
+  clearInterval(timer);
+
+  disableWakeLock();
+}
 function resetTimer(){
 
   clearInterval(timer);
+
+  disableWakeLock();
 
   totalMs = 0;
 
@@ -296,6 +303,8 @@ document.getElementById("colorName");
 
 const colorSelect =
 document.getElementById("colorSelect");
+const imageUpload =
+document.getElementById("imageUpload");
 
 // APPLY COLOR
 function applyColor(color){
@@ -364,6 +373,141 @@ colorName.addEventListener("keyup",()=>{
 colorSelect.addEventListener("change",()=>{
 
   applyColor(colorSelect.value);
+
+});
+
+// SCREEN WAKE LOCK
+async function enableWakeLock(){
+
+  try{
+
+    wakeLock =
+    await navigator.wakeLock.request("screen");
+
+    console.log("Screen Wake Lock ON");
+
+  }catch(err){
+
+    console.log(
+      "Wake Lock Error:",
+      err
+    );
+  }
+}
+
+function disableWakeLock(){
+
+  if(wakeLock){
+
+    wakeLock.release();
+
+    wakeLock = null;
+
+    console.log("Screen Wake Lock OFF");
+  }
+}
+
+// IMAGE UPLOAD
+
+imageUpload.addEventListener(
+  "change",
+  (e)=>{
+
+    let file =
+    e.target.files[0];
+
+    if(!file) return;
+
+    let reader =
+    new FileReader();
+
+    reader.onload = function(ev){
+
+      let imageUrl =
+      `url(${ev.target.result})`;
+
+      // TEXT IMAGE
+      if(colorMode === "text"){
+
+        let timer =
+        document.querySelector(".timer");
+
+        // let title =
+        // document.querySelector(".title");
+
+        let timeText =
+        document.getElementById(
+          "completedTime"
+        );
+
+        let overTitle =
+        document.querySelector(
+          ".time-over-box h1"
+        );
+
+        // ADD CLASS
+        timer.classList.add(
+          "image-text"
+        );
+
+        // title.classList.add(
+        //   "image-text"
+        // );
+
+        timeText.classList.add(
+          "image-text"
+        );
+
+        overTitle.classList.add(
+          "image-text"
+        );
+
+        // APPLY IMAGE
+        timer.style.backgroundImage =
+        imageUrl;
+
+        // title.style.backgroundImage =
+        // imageUrl;
+
+        timeText.style.backgroundImage =
+        imageUrl;
+
+        overTitle.style.backgroundImage =
+        imageUrl;
+
+        // REMOVE COLOR
+        timer.style.color = "transparent";
+
+        timer.style.textShadow = "none";
+
+        timeText.style.color = "transparent";
+
+        timeText.style.textShadow = "none";
+
+        overTitle.style.color = "transparent";
+
+        overTitle.style.textShadow = "none";
+
+      }
+
+      // BACKGROUND IMAGE
+      else{
+
+        document.body.classList.add(
+          "photo-bg"
+        );
+
+        document.body.style.backgroundImage =
+        imageUrl;
+
+        document.querySelector(
+          ".time-over-box"
+        ).style.backgroundImage =
+        imageUrl;
+      }
+    };
+
+    reader.readAsDataURL(file);
 
 });
 
