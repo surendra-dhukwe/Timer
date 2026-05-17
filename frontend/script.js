@@ -142,24 +142,32 @@ function toggleLayout(){
   );
 }
 
-function focusMode(){
+async function focusMode(){
 
-  document.body.classList.toggle(
+  // AUTO START
+  if(!timer){
+    startTimer();
+  }
+
+  document.body.classList.add(
     "hide-ui"
   );
 
-  // Fullscreen
+  // FULLSCREEN
   if(!document.fullscreenElement){
 
-    document.documentElement
+    await document.documentElement
     .requestFullscreen();
-
-  }else{
-
-    document.exitFullscreen();
   }
-}
 
+  // SCREEN LOCK PREVENT
+  enableWakeLock();
+
+  // STOP BUTTON SHOW
+  document.getElementById(
+    "floatingStop"
+  ).style.display = "flex";
+}
 function playRelaxSound(){
 
   const audioCtx =
@@ -510,5 +518,27 @@ imageUpload.addEventListener(
     reader.readAsDataURL(file);
 
 });
+
+function exitFocusMode(){
+
+  clearInterval(timer);
+
+  timer = null;
+
+  disableWakeLock();
+
+  document.body.classList.remove(
+    "hide-ui"
+  );
+
+  document.getElementById(
+    "floatingStop"
+  ).style.display = "none";
+
+  if(document.fullscreenElement){
+
+    document.exitFullscreen();
+  }
+}
 
 updateDisplay();
