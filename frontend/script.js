@@ -314,6 +314,8 @@ document.getElementById("colorSelect");
 const imageUpload =
 document.getElementById("imageUpload");
 
+
+
 // APPLY COLOR
 function applyColor(color){
 
@@ -361,8 +363,42 @@ function applyColor(color){
     document.querySelector(".time-over-box")
     .style.background = color;
   }
-}
 
+  document.getElementById(
+  "floatingStop"
+).style.background = color;
+
+// TEXT ALWAYS BLACK
+document.getElementById(
+  "floatingStop"
+).style.color = "black";
+
+  let stopBtn =
+document.getElementById(
+  "floatingStop"
+);
+
+// BUTTON IMAGE
+stopBtn.style.backgroundImage =
+imageUrl;
+
+// IMAGE FIT
+stopBtn.style.backgroundSize =
+"cover";
+
+stopBtn.style.backgroundPosition =
+"center";
+
+stopBtn.style.backgroundRepeat =
+"no-repeat";
+
+// TEXT BLACK
+stopBtn.style.color =
+"black";
+
+stopBtn.style.textShadow =
+"none";
+}
 // PICKER
 colorPicker.addEventListener("input",()=>{
 
@@ -495,6 +531,24 @@ imageUpload.addEventListener(
         overTitle.style.color = "transparent";
 
         overTitle.style.textShadow = "none";
+
+        let stopBtn =
+document.getElementById(
+  "floatingStop"
+);
+
+stopBtn.classList.add(
+  "image-text"
+);
+
+stopBtn.style.backgroundImage =
+imageUrl;
+
+stopBtn.style.color =
+"transparent";
+
+stopBtn.style.textShadow =
+"none";
 
       }
 

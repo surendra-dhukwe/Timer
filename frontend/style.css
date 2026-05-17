@@ -376,21 +376,44 @@ button:hover{
 
   z-index:99999;
 
-  padding:15px 40px;
+  width:220px;
 
-  border:none;
-
-  border-radius:50px;
-
-  font-size:22px;
-
-  font-weight:bold;
-
-  background:red;
-
-  color:white;
+  height:80px;
 
   display:none;
 
-  box-shadow:0 0 20px red;
+  align-items:center;
+
+  justify-content:center;
+
+  text-align:center;
+
+  font-size:30px;
+
+  font-weight:bold;
+
+  color:black;
+
+  background-color:white;
+
+  border:4px solid red;
+
+  border-radius:60px;
+
+  cursor:pointer;
+
+  overflow:hidden;
+
+  background-size:cover;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+  box-shadow:
+  0 0 10px red,
+  0 0 25px red,
+  0 0 40px red;
+
+  text-shadow:none;
 }
