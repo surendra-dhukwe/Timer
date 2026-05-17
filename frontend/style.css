@@ -376,9 +376,9 @@ button:hover{
 
   z-index:99999;
 
-  width:220px;
+  width:240px;
 
-  height:80px;
+  height:90px;
 
   display:none;
 
@@ -386,23 +386,15 @@ button:hover{
 
   justify-content:center;
 
-  text-align:center;
-
-  font-size:30px;
-
-  font-weight:bold;
-
-  color:black;
-
-  background-color:white;
-
-  border:4px solid red;
-
-  border-radius:60px;
+  overflow:hidden;
 
   cursor:pointer;
 
-  overflow:hidden;
+  border:4px solid red;
+
+  border-radius:70px;
+
+  background-color:#111;
 
   background-size:cover;
 
@@ -413,7 +405,49 @@ button:hover{
   box-shadow:
   0 0 10px red,
   0 0 25px red,
-  0 0 40px red;
+  0 0 50px red;
 
-  text-shadow:none;
+  backdrop-filter:blur(5px);
+}
+
+/* TEXT */
+
+#floatingStop span{
+
+  font-size:34px;
+
+  font-weight:bold;
+
+  letter-spacing:3px;
+
+  background-size:cover;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+  -webkit-background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+
+  background-clip:text;
+
+  color:transparent;
+
+  /* BLACK BORDER GLOW */
+
+  filter:
+  drop-shadow(0 0 2px black)
+  drop-shadow(0 0 6px black)
+  drop-shadow(0 0 12px black);
+}
+
+#floatingStop{
+
+  pointer-events:auto;
+}
+
+#stopText{
+
+  pointer-events:none;
 }

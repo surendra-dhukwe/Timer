@@ -1,6 +1,7 @@
 let totalMs = 0;
 let timer = null;
 let wakeLock = null;
+let selectedImage = "";
 let originalTime = "00:00:00";
 
 const h = document.getElementById("hours");
@@ -57,58 +58,71 @@ ${String(ss).padStart(2,"0")}`;
     (hh * 3600 + mm * 60 + ss) * 1000;
   }
 
-  if(totalMs <= 0){
-    alert("Enter Time");
-    return;
-  }
-
   clearInterval(timer);
   enableWakeLock();
 
   timer = setInterval(() => {
 
-    totalMs -= 10;
+  totalMs -= 10;
 
-    if(totalMs <= 0){
+  if(totalMs <= 0){
 
-      totalMs = 0;
+    totalMs = 0;
 
-      clearInterval(timer);
-      disableWakeLock();
+    clearInterval(timer);
 
-      updateDisplay();
+    timer = null;
 
-      playRelaxSound();
-
-      // TIME OVER BOX
-      let box =
-      document.getElementById("timeOverBox");
-
-      document.getElementById(
-        "completedTime"
-      ).innerText = originalTime;
-
-      box.style.display = "flex";
-
-      // 5 sec baad hide
-      setTimeout(() => {
-
-        box.style.display = "none";
-
-        document.body.classList.remove(
-          "hide-ui"
-        );
-
-        if(document.fullscreenElement){
-          document.exitFullscreen();
-        }
-
-      },5000);
-    }
+    disableWakeLock();
 
     updateDisplay();
 
-  },10);
+    playRelaxSound();
+
+    // STOP BUTTON HIDE
+    let stopBtn =
+    document.getElementById(
+      "floatingStop"
+    );
+
+    stopBtn.style.display =
+    "none";
+
+    // REMOVE FOCUS MODE
+    document.body.classList.remove(
+      "hide-ui"
+    );
+
+    // EXIT FULLSCREEN
+    if(document.fullscreenElement){
+
+      document.exitFullscreen();
+    }
+
+    // TIME OVER BOX
+    let box =
+    document.getElementById(
+      "timeOverBox"
+    );
+
+    document.getElementById(
+      "completedTime"
+    ).innerText =
+    originalTime;
+
+    box.style.display = "flex";
+
+    setTimeout(() => {
+
+      box.style.display = "none";
+
+    },5000);
+  }
+
+  updateDisplay();
+
+},10);
+
 }
 
 function stopTimer(){
@@ -532,23 +546,26 @@ imageUpload.addEventListener(
 
         overTitle.style.textShadow = "none";
 
-        let stopBtn =
+        selectedImage =
+`url(${ev.target.result})`;
+
+let stopBtn =
 document.getElementById(
   "floatingStop"
 );
 
-stopBtn.classList.add(
-  "image-text"
+let stopText =
+document.getElementById(
+  "stopText"
 );
 
+// BUTTON IMAGE
 stopBtn.style.backgroundImage =
-imageUrl;
+selectedImage;
 
-stopBtn.style.color =
-"transparent";
-
-stopBtn.style.textShadow =
-"none";
+// TEXT IMAGE
+stopText.style.backgroundImage =
+selectedImage;
 
       }
 
@@ -585,14 +602,25 @@ function exitFocusMode(){
     "hide-ui"
   );
 
+  let stopBtn =
   document.getElementById(
     "floatingStop"
-  ).style.display = "none";
+  );
+
+  stopBtn.style.display =
+  "none";
 
   if(document.fullscreenElement){
 
     document.exitFullscreen();
   }
 }
+
+document.getElementById(
+  "floatingStop"
+).addEventListener(
+  "click",
+  exitFocusMode
+);
 
 updateDisplay();
